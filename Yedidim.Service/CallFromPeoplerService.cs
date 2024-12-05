@@ -16,13 +16,32 @@ namespace Yedidim.Service
             _CallFromPeopleRepository = studentRepository;
         }
 
-        public List<CallFromPeople> GetList()
+        public IEnumerable<CallFromPeople> GetList()
         {
             //לוגיקה עיסקית
             //קבלת נתונים מה db
             //לוגיקה עסקית
             return _CallFromPeopleRepository.GetAll();
 
+        }
+
+
+        public CallFromPeople Get(int id)
+        {
+            return _CallFromPeopleRepository.Get(id);
+        }
+
+        public CallFromPeople Add(CallFromPeople c)
+        {
+            return _CallFromPeopleRepository.Add(c);
+        }
+        public CallFromPeople Update(CallFromPeople c)
+        {
+            return _CallFromPeopleRepository.Update(c);
+        }
+        public void Delete(CallFromPeople c)
+        {
+             _CallFromPeopleRepository.Delete(c);
         }
     }
 }

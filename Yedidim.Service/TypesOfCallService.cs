@@ -17,12 +17,32 @@ namespace Yedidim.Service
             _TypesOfCallRepository = typesOfCalltRepository;
         }
 
-        public List<TypesOfCall> GetList()
+        public IEnumerable<TypesOfCall> GetList()
         {
             //לוגיקה עיסקית
             //קבלת נתונים מה db
             //לוגיקה עסקית
             return _TypesOfCallRepository.GetAll();
+
+        }
+
+
+        public TypesOfCall Get(int id)
+        {
+            return _TypesOfCallRepository.Get(id);
+        }
+
+        public TypesOfCall Add(TypesOfCall t)
+        {
+            return _TypesOfCallRepository.Add(t);
+        }
+        public TypesOfCall Update(TypesOfCall t)
+        {
+            return _TypesOfCallRepository.Update(t);
+        }
+        public void Delete(TypesOfCall t)
+        {
+            _TypesOfCallRepository.Delete(t);
         }
     }
 }

@@ -9,7 +9,15 @@ namespace Yedidim.Core.Repositories
 {
     public interface ICallFromPeopleRepository
     {
-        public List<CallFromPeople> GetAll();
+        public IEnumerable<CallFromPeople> GetAll();
+
+        public CallFromPeople Get(int id);
+
+        public CallFromPeople Add(CallFromPeople callFromPeople);
+
+        public CallFromPeople Update(CallFromPeople callFromPeople);
+
+        public void Delete(CallFromPeople callFromPeople);
 
     }
 }

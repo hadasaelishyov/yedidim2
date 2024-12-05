@@ -17,13 +17,32 @@ namespace Yedidim.Service
             _VolunteerRepository = volunteerRepository;
         }
 
-        public List<Volunteer> GetList()
+        public IEnumerable<Volunteer> GetList()
         {
             //לוגיקה עיסקית
             //קבלת נתונים מה db
             //לוגיקה עסקית
             return _VolunteerRepository.GetAll();
 
+        }
+
+
+        public Volunteer Get(int id)
+        {
+            return _VolunteerRepository.Get(id);
+        }
+
+        public Volunteer Add(Volunteer v)
+        {
+            return _VolunteerRepository.Add(v);
+        }
+        public Volunteer Update(Volunteer v)
+        {
+            return _VolunteerRepository.Update(v);
+        }
+        public void Delete(Volunteer v)
+        {
+            _VolunteerRepository.Delete(v);
         }
     }
 }

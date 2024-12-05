@@ -8,7 +8,14 @@ namespace Yedidim.Core.Repositories
 {
     public interface IVolunteerRepository
     {
-        public List<Volunteer> GetAll();
+        public IEnumerable<Volunteer> GetAll();
 
+        public Volunteer Get(int id);
+
+        public Volunteer Add(Volunteer volunteer);
+
+        public Volunteer Update(Volunteer volunteer);
+
+        public void Delete(Volunteer volunteer);
     }
 }

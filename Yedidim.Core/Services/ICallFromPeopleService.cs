@@ -9,7 +9,14 @@ namespace Yedidim.Core.Services
 {
     public interface ICallFromPeopleService
     {
-        public List<CallFromPeople> GetList();
+        public IEnumerable<CallFromPeople> GetList();
 
+        public CallFromPeople Get(int id);
+
+        public CallFromPeople Add(CallFromPeople callFromPeople);
+
+        public CallFromPeople Update(CallFromPeople callFromPeople);
+
+        public void Delete(CallFromPeople callFromPeople);
     }
 }
