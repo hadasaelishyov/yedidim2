@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yedidim.Data;
 
@@ -10,9 +11,10 @@ using Yedidim.Data;
 namespace Yedidim.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241209155830_change")]
+    partial class change
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +57,7 @@ namespace Yedidim.Data.Migrations
 
                     b.HasIndex("VolunteerId");
 
-                    b.ToTable("CallsFromPeople", (string)null);
+                    b.ToTable("CallsFromPeople");
                 });
 
             modelBuilder.Entity("Yedidim.TypesOfCall", b =>
@@ -72,7 +74,7 @@ namespace Yedidim.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypesOfCall", (string)null);
+                    b.ToTable("TypesOfCall");
                 });
 
             modelBuilder.Entity("Yedidim.Volunteer", b =>
@@ -96,7 +98,7 @@ namespace Yedidim.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Volunteers", (string)null);
+                    b.ToTable("Volunteers");
                 });
 
             modelBuilder.Entity("Yedidim.Core.Entities.CallFromPeople", b =>

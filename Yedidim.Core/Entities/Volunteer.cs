@@ -1,4 +1,6 @@
-﻿namespace Yedidim
+﻿using Yedidim.Core.Entities;
+
+namespace Yedidim
 {
     public class Volunteer
     {
@@ -6,5 +8,7 @@
         public int Id { get; set; }
         public int Pwd { get; set; }
         public string Phone { get; set; }
+        public List<CallFromPeople> callFromPeople { get; set; }
+
     }
 }

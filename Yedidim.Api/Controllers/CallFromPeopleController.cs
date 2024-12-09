@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Yedidim.Api.Models;
+using Yedidim.Core.DTOs;
 using Yedidim.Core.Entities;
 using Yedidim.Core.Services;
 
@@ -9,9 +12,12 @@ namespace Yedidim.Controllers
     public class CallFromPeopleController : Controller
     {
         private readonly ICallFromPeopleService _CallFromPeopleService;
-        public CallFromPeopleController(ICallFromPeopleService CallFromPeopleService)
+        private readonly IMapper _mapper;
+
+        public CallFromPeopleController(ICallFromPeopleService CallFromPeopleService, IMapper mapper)
         {
             _CallFromPeopleService = CallFromPeopleService;
+            _mapper = mapper;
         }
 
         // GET: TCallFromPeopleController
@@ -20,7 +26,13 @@ namespace Yedidim.Controllers
         public ActionResult Get()
         {
 
-            return Ok(_CallFromPeopleService.GetList());
+
+            var callsDto = _mapper.Map<IEnumerable<CallsDto>>(_CallFromPeopleService.GetList());
+            //foreach (var student in students)
+            //{
+            //    studentsDto.Add(_mapping.MapStudentToDto(student));
+            //}
+            return Ok(callsDto);
         }
 
         // GET: CallFromPeopleController/Details/5
@@ -32,18 +44,21 @@ namespace Yedidim.Controllers
             {
                 return NotFound();
             }
-            return Ok(callFromPeople);
+            var callsDto = _mapper.Map<CallsDto>(callFromPeople);
+            return Ok(callsDto);
         }
         [HttpPost]
         // POST: CallFromPeopleController/Create
-        public ActionResult Post([FromBody] CallFromPeople value)
+        public ActionResult Post([FromBody] CallsPostModel value)
         {
-            var callFromPeople = _CallFromPeopleService.Get(value.Id);
-            if (callFromPeople == null)
-            {
-                return Ok(_CallFromPeopleService.Add(callFromPeople));
-            }
-            return Conflict();
+            //var callFromPeople = _CallFromPeopleService.Get(value.Id);
+            //if (callFromPeople == null)
+            //{
+            //    return Ok(_CallFromPeopleService.Add(callFromPeople));
+            //}
+            //return Conflict();
+            var calls = _mapper.Map<CallFromPeople>(value);
+            return Ok(_CallFromPeopleService.Add(calls));
         }
 
         // PUT api/<CallFromPeopleController>/5

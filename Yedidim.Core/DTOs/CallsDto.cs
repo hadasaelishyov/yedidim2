@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yedidim.Core.Entities
+namespace Yedidim.Core.DTOs
 {
-    public class CallFromPeople
+    public class CallsDto
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public string Phone { get; set; }
-        
+
         public int IdTypesOfCall { get; set; }
 
         public int IdVolunteer { get; set; }
-        public TypesOfCall TypesOfCall { get; set; }
-        public Volunteer Volunteer { get; set; }
+        public TypesOfCallDto TypesOfCall { get; set; }
+        public VolunteerDto Volunteer { get; set; }
     }
 }

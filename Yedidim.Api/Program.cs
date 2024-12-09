@@ -1,4 +1,5 @@
 using Yedidim;
+using Yedidim.Core;
 using Yedidim.Core.Repositories;
 using Yedidim.Core.Services;
 using Yedidim.Data;
@@ -24,6 +25,7 @@ builder.Services.AddScoped<IVolunteerService, VolunteerService>();
 
 //builder.Services.AddSingleton<DataContext>();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
 var app = builder.Build();
