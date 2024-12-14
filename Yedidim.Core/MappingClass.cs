@@ -16,7 +16,6 @@ namespace Yedidim.Core
             CreateMap<CallFromPeople, CallsDto>().ReverseMap();
             CreateMap<TypesOfCall, TypesOfCallDto>().ReverseMap();
             CreateMap<Volunteer, VolunteerDto>().ReverseMap();
-
         }
     }
 }

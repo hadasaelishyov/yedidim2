@@ -12,9 +12,9 @@ namespace Yedidim.Core.Entities
         public string Name { get; set; }
         public string Phone { get; set; }
         
-        public int IdTypesOfCall { get; set; }
+        public int TypesOfCallID { get; set; }
 
-        public int IdVolunteer { get; set; }
+        public int VolunteerID { get; set; }
         public TypesOfCall TypesOfCall { get; set; }
         public Volunteer Volunteer { get; set; }
     }

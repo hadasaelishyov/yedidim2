@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Yedidim;
 using Yedidim.Core;
 using Yedidim.Core.Repositories;
@@ -9,11 +10,17 @@ using Yedidim.Service;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddScoped<ICallFromPeopleRepository, CallFromPeopleRepository>();
 builder.Services.AddScoped<ITypesOfCalltRepository, TypesOfCallRepository>();
 builder.Services.AddScoped<IVolunteerRepository, VolunteerRepository>();

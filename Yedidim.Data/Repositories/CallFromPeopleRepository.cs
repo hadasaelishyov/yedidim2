@@ -37,13 +37,17 @@ namespace Yedidim.Data.Repositories
         {
             int index = _context.CallsFromPeople.ToList().FindIndex(e => e.Id == callFromPeople.Id);
             _context.CallsFromPeople.Remove(_context.CallsFromPeople.ToList()[index]);
+            _context.SaveChanges();
+
         }
         public CallFromPeople Update(CallFromPeople callFromPeople)
         {
             int index = _context.CallsFromPeople.ToList().FindIndex(e => e.Id == callFromPeople.Id);
             _context.CallsFromPeople.ToList()[index].Phone = callFromPeople.Phone;
-            _context.CallsFromPeople.ToList()[index].IdTypesOfCall = callFromPeople.IdTypesOfCall;
-            _context.CallsFromPeople.ToList()[index].IdVolunteer = callFromPeople.IdVolunteer;
+            _context.CallsFromPeople.ToList()[index].TypesOfCallID = callFromPeople.TypesOfCallID;
+            _context.CallsFromPeople.ToList()[index].VolunteerID = callFromPeople.VolunteerID;
+            _context.SaveChanges();
+
 
             return _context.CallsFromPeople.ToList()[index];
         }

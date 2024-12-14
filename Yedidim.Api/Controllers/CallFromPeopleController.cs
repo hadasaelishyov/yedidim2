@@ -28,6 +28,7 @@ namespace Yedidim.Controllers
 
 
             var callsDto = _mapper.Map<IEnumerable<CallsDto>>(_CallFromPeopleService.GetList());
+            Console.WriteLine(callsDto);
             //foreach (var student in students)
             //{
             //    studentsDto.Add(_mapping.MapStudentToDto(student));
@@ -57,7 +58,8 @@ namespace Yedidim.Controllers
             //    return Ok(_CallFromPeopleService.Add(callFromPeople));
             //}
             //return Conflict();
-            var calls = _mapper.Map<CallFromPeople>(value);
+            //{
+            var calls = new CallFromPeople { Id = value.Id, Name = value.Name, Phone = value.Phone, TypesOfCallID = value.IdTypesOfCall, VolunteerID = value.IdVolunteer };
             return Ok(_CallFromPeopleService.Add(calls));
         }
 
