@@ -49,7 +49,7 @@ namespace Yedidim.Data.Migrations
 
                     b.HasIndex("VolunteerID");
 
-                    b.ToTable("CallsFromPeople");
+                    b.ToTable("CallsFromPeople", (string)null);
                 });
 
             modelBuilder.Entity("Yedidim.TypesOfCall", b =>
@@ -66,7 +66,7 @@ namespace Yedidim.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypesOfCall");
+                    b.ToTable("TypesOfCall", (string)null);
                 });
 
             modelBuilder.Entity("Yedidim.Volunteer", b =>
@@ -90,7 +90,7 @@ namespace Yedidim.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Volunteers");
+                    b.ToTable("Volunteers", (string)null);
                 });
 
             modelBuilder.Entity("Yedidim.Core.Entities.CallFromPeople", b =>

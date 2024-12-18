@@ -17,32 +17,32 @@ namespace Yedidim.Service
             _VolunteerRepository = volunteerRepository;
         }
 
-        public IEnumerable<Volunteer> GetList()
+        public async Task<IEnumerable<Volunteer>> GetList()
         {
             //לוגיקה עיסקית
             //קבלת נתונים מה db
             //לוגיקה עסקית
-            return _VolunteerRepository.GetAll();
+            return await _VolunteerRepository.GetAllAsync();
 
         }
 
 
-        public Volunteer Get(int id)
+        public async Task<Volunteer> Get(int id)
         {
-            return _VolunteerRepository.Get(id);
+            return await _VolunteerRepository.GetAsync(id);
         }
 
-        public Volunteer Add(Volunteer v)
+        public async Task<Volunteer> Add(Volunteer v)
         {
-            return _VolunteerRepository.Add(v);
+            return await _VolunteerRepository.AddAsync(v);
         }
-        public Volunteer Update(Volunteer v)
+        public async Task<Volunteer> Update(int id, Volunteer v)
         {
-            return _VolunteerRepository.Update(v);
+            return await _VolunteerRepository.UpdateAsync(id, v);
         }
-        public void Delete(Volunteer v)
+        public async Task<bool> Delete(int id)
         {
-            _VolunteerRepository.Delete(v);
+            return await _VolunteerRepository.DeleteAsync(id);
         }
     }
 }

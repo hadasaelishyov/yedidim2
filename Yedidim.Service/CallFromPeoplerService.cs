@@ -16,32 +16,32 @@ namespace Yedidim.Service
             _CallFromPeopleRepository = studentRepository;
         }
 
-        public IEnumerable<CallFromPeople> GetList()
+        public async Task<IEnumerable<CallFromPeople>> GetList()
         {
             //לוגיקה עיסקית
             //קבלת נתונים מה db
             //לוגיקה עסקית
-            return _CallFromPeopleRepository.GetAll();
+            return await _CallFromPeopleRepository.GetAllAsync();
 
         }
 
 
-        public CallFromPeople Get(int id)
+        public async Task<CallFromPeople> Get(int id)
         {
-            return _CallFromPeopleRepository.Get(id);
+            return await _CallFromPeopleRepository.GetAsync(id);
         }
 
-        public CallFromPeople Add(CallFromPeople c)
+        public async Task<CallFromPeople> Add(CallFromPeople c)
         {
-            return _CallFromPeopleRepository.Add(c);
+            return await _CallFromPeopleRepository.AddAsync(c);
         }
-        public CallFromPeople Update(CallFromPeople c)
+        public async  Task<CallFromPeople> Update(int id, CallFromPeople c)
         {
-            return _CallFromPeopleRepository.Update(c);
+            return await _CallFromPeopleRepository.UpdateAsync(id, c);
         }
-        public void Delete(CallFromPeople c)
+        public async Task<bool> Delete(int id)
         {
-             _CallFromPeopleRepository.Delete(c);
+            return await _CallFromPeopleRepository.DeleteAsync(id);
         }
     }
 }

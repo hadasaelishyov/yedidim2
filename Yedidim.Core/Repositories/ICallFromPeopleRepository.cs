@@ -9,15 +9,15 @@ namespace Yedidim.Core.Repositories
 {
     public interface ICallFromPeopleRepository
     {
-        public IEnumerable<CallFromPeople> GetAll();
+        public Task<IEnumerable<CallFromPeople>> GetAllAsync();
 
-        public CallFromPeople Get(int id);
+        public Task<CallFromPeople> GetAsync(int id);
 
-        public CallFromPeople Add(CallFromPeople callFromPeople);
+        public Task<CallFromPeople> AddAsync(CallFromPeople callFromPeople);
 
-        public CallFromPeople Update(CallFromPeople callFromPeople);
+        public Task<CallFromPeople> UpdateAsync(int id, CallFromPeople callFromPeople);
 
-        public void Delete(CallFromPeople callFromPeople);
+        public Task<bool> DeleteAsync(int id);
 
     }
 }

@@ -8,14 +8,14 @@ namespace Yedidim.Core.Services
 {
     public interface IVolunteerService
     {
-        public IEnumerable<Volunteer> GetList();
+        public Task<IEnumerable<Volunteer>> GetList();
 
-        public Volunteer Get(int id);
+        public Task<Volunteer> Get(int id);
 
-        public Volunteer Add(Volunteer volunteer);
+        public Task<Volunteer> Add(Volunteer volunteer);
 
-        public Volunteer Update(Volunteer volunteer);
+        public Task<Volunteer> Update(int id, Volunteer volunteer);
 
-        public void Delete(Volunteer volunteer);
+        public Task<bool> Delete(int id);
     }
 }

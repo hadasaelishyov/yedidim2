@@ -23,66 +23,54 @@ namespace Yedidim.Controllers
         // GET: TCallFromPeopleController
         [HttpGet]
 
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
 
-
-            var callsDto = _mapper.Map<IEnumerable<CallsDto>>(_CallFromPeopleService.GetList());
-            Console.WriteLine(callsDto);
-            //foreach (var student in students)
-            //{
-            //    studentsDto.Add(_mapping.MapStudentToDto(student));
-            //}
+            var calls = await _CallFromPeopleService.GetList();
+            var callsDto = _mapper.Map<IEnumerable<CallsDto>>(calls);
             return Ok(callsDto);
         }
 
         // GET: CallFromPeopleController/Details/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            var callFromPeople = _CallFromPeopleService.Get(id);
-            if (callFromPeople == null)
+            var c = await _CallFromPeopleService.Get(id);
+            if (c == null)
             {
                 return NotFound();
             }
-            var callsDto = _mapper.Map<CallsDto>(callFromPeople);
+            var callsDto = _mapper.Map<CallsDto>(c);
             return Ok(callsDto);
         }
         [HttpPost]
         // POST: CallFromPeopleController/Create
-        public ActionResult Post([FromBody] CallsPostModel value)
+        public async Task<ActionResult> Post([FromBody] CallsPostModel value)
         {
-            //var callFromPeople = _CallFromPeopleService.Get(value.Id);
-            //if (callFromPeople == null)
-            //{
-            //    return Ok(_CallFromPeopleService.Add(callFromPeople));
-            //}
-            //return Conflict();
-            //{
-            var calls = new CallFromPeople { Id = value.Id, Name = value.Name, Phone = value.Phone, TypesOfCallID = value.IdTypesOfCall, VolunteerID = value.IdVolunteer };
-            return Ok(_CallFromPeopleService.Add(calls));
+            var call = new CallFromPeople { Id = value.Id, Name = value.Name, Phone = value.Phone, TypesOfCallID = value.IdTypesOfCall, VolunteerID = value.IdVolunteer };
+            var call2 = await _CallFromPeopleService.Add(call);
+            var callDto = _mapper.Map<CallsDto>(call2);
+            return Ok(callDto);
         }
 
         // PUT api/<CallFromPeopleController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] CallFromPeople value)
+        public async Task<ActionResult> Put(int id, [FromBody] CallsPostModel value)
         {
-            var callFromPeople = _CallFromPeopleService.Get(value.Id);
-            if (callFromPeople != null)
-            {
-                return Ok(_CallFromPeopleService.Update(value));
-            }
-            return Conflict();
+            var c = new CallFromPeople { Id = value.Id, Name = value.Name, Phone = value.Phone, TypesOfCallID = value.IdTypesOfCall, VolunteerID = value.IdVolunteer };
+
+            var call = await _CallFromPeopleService.Update(id, c);
+
+            var callDto = _mapper.Map<CallsDto>(call);
+
+            return Ok(callDto);
         }
         // DELETE api/<CallFromPeopleController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var callFromPeople = _CallFromPeopleService.Get(id);
-            if (callFromPeople != null)
-            {
-                _CallFromPeopleService.Delete(callFromPeople);
-            }
+            return await _CallFromPeopleService.Delete(id);
+
         }
     }
 }

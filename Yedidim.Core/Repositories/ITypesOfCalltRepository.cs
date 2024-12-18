@@ -9,14 +9,14 @@ namespace Yedidim.Core.Repositories
 {
     public interface ITypesOfCalltRepository
     {
-        public IEnumerable<TypesOfCall> GetAll();
+        public  Task<IEnumerable<TypesOfCall>> GetAllAsync();
 
-        public TypesOfCall Get(int id);
+        public  Task<TypesOfCall> GetAsync(int id);
 
-        public TypesOfCall Add(TypesOfCall typesOfCall);
+        public Task<TypesOfCall> AddAsync(TypesOfCall typesOfCall);
 
-        public TypesOfCall Update(TypesOfCall typesOfCall);
+        public Task<TypesOfCall> UpdateAsync(int id, TypesOfCall typesOfCall);
 
-        public void Delete(TypesOfCall typesOfCall);
+        public Task<bool> DeleteAsync(int id);
     }
 }

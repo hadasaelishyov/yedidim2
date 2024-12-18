@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,36 +16,42 @@ namespace Yedidim.Data.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Volunteer> GetAll()
+        public async Task<IEnumerable<Volunteer>> GetAllAsync()
         {
-            return _context.Volunteers;
+            return await _context.Volunteers.Where(c => !string.IsNullOrEmpty(c.Name)).ToListAsync();
 
         }
-        public Volunteer Get(int id)
+        public async Task<Volunteer> GetAsync(int id)
         {
-            return _context.Volunteers.FirstOrDefault(v => v.Id == id);
+            return await _context.Volunteers.FirstOrDefaultAsync(v => v.Id == id);
         }
 
-        public Volunteer Add(Volunteer volunteer)
+        public async Task<Volunteer> AddAsync(Volunteer volunteer)
         {
             _context.Volunteers.Add(volunteer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return volunteer;
         }
-        public void Delete(Volunteer volunteer)
+        public async Task<bool> DeleteAsync(int id)
         {
-            int index = _context.Volunteers.ToList().FindIndex(e => e.Id == volunteer.Id);
-            _context.Volunteers.Remove(_context.Volunteers.ToList()[index]);
+            var v = await _context.Volunteers.FindAsync(id);
+            if (v == null)
+                return false;
+            _context.Volunteers.Remove(v);
+            await _context.SaveChangesAsync();
+            return true;
         }
-        public Volunteer Update(Volunteer volunteer)
+        public async Task<Volunteer> UpdateAsync(int id, Volunteer volunteer)
         {
-            int index = _context.Volunteers.ToList().FindIndex(e => e.Id == volunteer.Id);
-            _context.Volunteers.ToList()[index].Name = volunteer.Name;
-            _context.Volunteers.ToList()[index].Id = volunteer.Id;
-            _context.Volunteers.ToList()[index].Pwd = volunteer.Pwd;
-            _context.Volunteers.ToList()[index].Phone = volunteer.Phone;
-
-            return _context.Volunteers.ToList()[index];
+            var v = await _context.Volunteers.FindAsync(id);
+            if (v == null)
+                return null;
+            v.Name = volunteer.Name;
+            v.Pwd=volunteer.Pwd;
+            v.Phone = volunteer.Phone;
+            _context.Volunteers.Update(v);
+            await _context.SaveChangesAsync();
+            return v;
         }
     }
 }

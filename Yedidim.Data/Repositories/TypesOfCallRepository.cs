@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using Yedidim.Core.Repositories;
 
 namespace Yedidim.Data.Repositories
 {
-    public class TypesOfCallRepository: ITypesOfCalltRepository
+    public class TypesOfCallRepository : ITypesOfCalltRepository
     {
         private readonly DataContext _context;
 
@@ -17,33 +18,39 @@ namespace Yedidim.Data.Repositories
         {
             _context = context;
         }
-        public IEnumerable<TypesOfCall> GetAll()
+        public async Task<IEnumerable<TypesOfCall>> GetAllAsync()
         {
-            return _context.TypesOfCall;
-
+            return await _context.TypesOfCall.Where(c => !string.IsNullOrEmpty(c.Discribition)).ToListAsync();
         }
-        public TypesOfCall Get(int id)
+        public async Task<TypesOfCall> GetAsync(int id)
         {
-            return _context.TypesOfCall.FirstOrDefault(t => t.Id == id);
+            return await _context.TypesOfCall.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public TypesOfCall Add(TypesOfCall typesOfCall)
+        public async Task<TypesOfCall> AddAsync(TypesOfCall typesOfCall)
         {
             _context.TypesOfCall.Add(typesOfCall);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return typesOfCall;
         }
-        public void Delete(TypesOfCall typesOfCall)
+        public async Task<bool> DeleteAsync(int id)
         {
-            int index = _context.TypesOfCall.ToList().FindIndex(e => e.Id == typesOfCall.Id);
-            _context.TypesOfCall.Remove(_context.TypesOfCall.ToList()[index]);
+            var type = await _context.TypesOfCall.FindAsync(id);
+            if (type == null)
+                return false;
+            _context.TypesOfCall.Remove(type);
+            await _context.SaveChangesAsync();
+            return true;
         }
-        public TypesOfCall Update(TypesOfCall typesOfCall)
+        public async Task<TypesOfCall> UpdateAsync(int id, TypesOfCall typesOfCall)
         {
-            int index = _context.CallsFromPeople.ToList().FindIndex(e => e.Id == typesOfCall.Id);
-            _context.TypesOfCall.ToList()[index].Discribition = typesOfCall.Discribition;
-            _context.TypesOfCall.ToList()[index].Id = typesOfCall.Id;
-            return _context.TypesOfCall.ToList()[index];
+            var type = await _context.TypesOfCall.FindAsync(id);
+            if (type == null)
+                return null;
+            type.Discribition = typesOfCall.Discribition;
+            _context.TypesOfCall.Update(type);
+            await _context.SaveChangesAsync();
+            return type;
         }
     }
 }

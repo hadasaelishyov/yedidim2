@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Yedidim.Api.Models;
+using Yedidim.Core.DTOs;
 using Yedidim.Core.Services;
 
 namespace Yedidim.Controllers
@@ -9,62 +12,62 @@ namespace Yedidim.Controllers
     public class VolunteerController : Controller
     {
         private readonly IVolunteerService _VolunteerService;
-        public VolunteerController(IVolunteerService VolunteerService)
+        private readonly IMapper _mapper;
+
+        public VolunteerController(IVolunteerService VolunteerService, IMapper mapper)
         {
             _VolunteerService = VolunteerService;
+            _mapper = mapper;
         }
         // GET: VolunteerController
         [HttpGet]
 
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
 
-            return Ok(_VolunteerService.GetList());
+            var volunteer = await _VolunteerService.GetList();
+            var volunteerDto = _mapper.Map<IEnumerable<VolunteerDto>>(volunteer);
+            return Ok(volunteerDto);
         }
 
         // GET: CallFromPeopleController/Details/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            var v = _VolunteerService.Get(id);
+            var v = await _VolunteerService.Get(id);
             if (v == null)
             {
                 return NotFound();
             }
-            return Ok(v);
+            var volunteerDto = _mapper.Map<VolunteerDto>(v);
+            return Ok(volunteerDto);
         }
         [HttpPost]
         // POST: CallFromPeopleController/Create
-        public ActionResult Post([FromBody] Volunteer value)
+        public async Task<ActionResult> Post([FromBody] VolunteerModel value)
         {
-            var v = _VolunteerService.Get(value.Id);
-            if (v == null)
-            {
-                return Ok(_VolunteerService.Add(v));
-            }
-            return Conflict();
+            var volunteer = new Volunteer { Id = value.Id, Name = value.Name, Pwd = value.Pwd, Phone = value.Phone };
+            var v = await _VolunteerService.Add(volunteer);
+            var volunteerDto = _mapper.Map<VolunteerDto>(v);
+            return Ok(volunteerDto);
         }
 
         // PUT api/<CallFromPeopleController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Volunteer value)
+        public async Task<ActionResult> Put(int id, [FromBody] VolunteerModel value)
         {
-            var v = _VolunteerService.Get(value.Id);
-            if (v != null)
-            {
-                return Ok(_VolunteerService.Update(value));
-            }
-            return Conflict();
+            var volunteer = new Volunteer { Id = value.Id, Name = value.Name, Pwd = value.Pwd, Phone = value.Phone };
+            var v = await _VolunteerService.Add(volunteer);
+
+            var volunteerDto = _mapper.Map<VolunteerDto>(v);
+
+            return Ok(volunteerDto);
         }
         // DELETE api/<CallFromPeopleController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var callFromPeople = _VolunteerService.Get(id);
-            if (callFromPeople != null)
-            {
-                _VolunteerService.Delete(callFromPeople);
-            }
+            return await _VolunteerService.Delete(id);
         }
     }
 }

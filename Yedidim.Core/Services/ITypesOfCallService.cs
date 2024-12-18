@@ -9,14 +9,14 @@ namespace Yedidim.Core.Services
 {
     public interface ITypesOfCallService
     {
-        public IEnumerable<TypesOfCall> GetList();
+        public Task<IEnumerable<TypesOfCall>> GetList();
 
-        public TypesOfCall Get(int id);
+        public Task<TypesOfCall> Get(int id);
 
-        public TypesOfCall Add(TypesOfCall typesOfCall);
+        public Task<TypesOfCall> Add(TypesOfCall typesOfCall);
 
-        public TypesOfCall Update(TypesOfCall typesOfCall);
+        public Task<TypesOfCall> Update(int id, TypesOfCall typesOfCall);
 
-        public void Delete(TypesOfCall typesOfCall);
+        public Task<bool> Delete(int id);
     }
 }

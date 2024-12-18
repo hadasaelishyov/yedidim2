@@ -17,7 +17,5 @@ namespace Yedidim.Core.DTOs
         public int TypesOfCallID { get; set; }
 
         public int VolunteerID { get; set; }
-        public TypesOfCallDto TypesOfCall { get; set; }
-        public VolunteerDto Volunteer { get; set; }
     }
 }

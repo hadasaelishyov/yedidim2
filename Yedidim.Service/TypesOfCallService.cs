@@ -17,32 +17,32 @@ namespace Yedidim.Service
             _TypesOfCallRepository = typesOfCalltRepository;
         }
 
-        public IEnumerable<TypesOfCall> GetList()
+        public async Task<IEnumerable<TypesOfCall>> GetList()
         {
             //לוגיקה עיסקית
             //קבלת נתונים מה db
             //לוגיקה עסקית
-            return _TypesOfCallRepository.GetAll();
+            return await _TypesOfCallRepository.GetAllAsync();
 
         }
 
 
-        public TypesOfCall Get(int id)
+        public async Task<TypesOfCall> Get(int id)
         {
-            return _TypesOfCallRepository.Get(id);
+            return await _TypesOfCallRepository.GetAsync(id);
         }
 
-        public TypesOfCall Add(TypesOfCall t)
+        public async Task<TypesOfCall> Add(TypesOfCall t)
         {
-            return _TypesOfCallRepository.Add(t);
+            return await _TypesOfCallRepository.AddAsync(t);
         }
-        public TypesOfCall Update(TypesOfCall t)
+        public async Task<TypesOfCall> Update(int id, TypesOfCall t)
         {
-            return _TypesOfCallRepository.Update(t);
+            return await _TypesOfCallRepository.UpdateAsync(id, t);
         }
-        public void Delete(TypesOfCall t)
+        public async Task<bool> Delete(int id)
         {
-            _TypesOfCallRepository.Delete(t);
+             return await _TypesOfCallRepository.DeleteAsync(id);
         }
     }
 }

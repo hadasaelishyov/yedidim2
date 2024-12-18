@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Yedidim.Core.Repositories;
 using Yedidim.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Yedidim.Data.Repositories
 {
-    public class CallFromPeopleRepository: ICallFromPeopleRepository
+    public class CallFromPeopleRepository : ICallFromPeopleRepository
     {
         private readonly DataContext _context;
 
@@ -17,39 +18,43 @@ namespace Yedidim.Data.Repositories
         {
             _context = context;
         }
-        public IEnumerable<CallFromPeople> GetAll()
+        public async Task<IEnumerable<CallFromPeople>> GetAllAsync()
         {
-            return _context.CallsFromPeople.Where(c => !string.IsNullOrEmpty(c.Name));
+            return await _context.CallsFromPeople.Where(c => !string.IsNullOrEmpty(c.Name)).Include(c => c.TypesOfCall).Include(c=>c.Volunteer).ToListAsync();
 
         }
-        public CallFromPeople Get(int id)
+        public async Task<CallFromPeople> GetAsync(int id)
         {
-            return _context.CallsFromPeople.FirstOrDefault(c => c.Id == id);
+            return await _context.CallsFromPeople.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public CallFromPeople Add(CallFromPeople callFromPeople)
+        public async Task<CallFromPeople> AddAsync(CallFromPeople callFromPeople)
         {
             _context.CallsFromPeople.Add(callFromPeople);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return callFromPeople;
         }
-        public void Delete(CallFromPeople callFromPeople)
+        public async Task<bool> DeleteAsync(int id)
         {
-            int index = _context.CallsFromPeople.ToList().FindIndex(e => e.Id == callFromPeople.Id);
-            _context.CallsFromPeople.Remove(_context.CallsFromPeople.ToList()[index]);
-            _context.SaveChanges();
+            var call = await _context.CallsFromPeople.FindAsync(id);
+            if (call == null)
+                return false;
+            _context.CallsFromPeople.Remove(call);
+            await _context.SaveChangesAsync();
+            return true;
 
         }
-        public CallFromPeople Update(CallFromPeople callFromPeople)
+        public async Task<CallFromPeople> UpdateAsync(int id, CallFromPeople callFromPeople)
         {
-            int index = _context.CallsFromPeople.ToList().FindIndex(e => e.Id == callFromPeople.Id);
-            _context.CallsFromPeople.ToList()[index].Phone = callFromPeople.Phone;
-            _context.CallsFromPeople.ToList()[index].TypesOfCallID = callFromPeople.TypesOfCallID;
-            _context.CallsFromPeople.ToList()[index].VolunteerID = callFromPeople.VolunteerID;
-            _context.SaveChanges();
-
-
-            return _context.CallsFromPeople.ToList()[index];
+            var call = await _context.CallsFromPeople.FindAsync(id);
+            if (call == null)
+                return null;
+            call.Phone = callFromPeople.Phone;
+            call.TypesOfCallID = callFromPeople.TypesOfCallID;
+            call.VolunteerID = callFromPeople.VolunteerID;
+            _context.CallsFromPeople.Update(call);
+            await _context.SaveChangesAsync();
+            return call;
         }
     }
 }
