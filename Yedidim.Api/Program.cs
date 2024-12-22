@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using Yedidim;
+using Yedidim.Api.Middlewares;
+using Yedidim.Api.Models;
 using Yedidim.Core;
 using Yedidim.Core.Repositories;
 using Yedidim.Core.Services;
@@ -47,6 +49,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseTrack();
 
 app.MapControllers();
 
