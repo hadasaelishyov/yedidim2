@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yedidim.Data", "Yedidim.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yedidim.Service", "Yedidim.Service\Yedidim.Service.csproj", "{633F8558-987C-4D14-BFCB-8E780E6090F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yedidim.Api", "..\yedidim\Yedidim.Api\Yedidim.Api.csproj", "{C0C74071-9C60-4F0B-9D49-86DC3082BC81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yedidim.Api", "Yedidim.Api\Yedidim.Api.csproj", "{C0C74071-9C60-4F0B-9D49-86DC3082BC81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
