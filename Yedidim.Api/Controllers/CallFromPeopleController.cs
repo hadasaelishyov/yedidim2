@@ -22,7 +22,6 @@ namespace Yedidim.Controllers
 
         // GET: TCallFromPeopleController
         [HttpGet]
-
         public async Task<ActionResult> Get()
         {
 
@@ -47,7 +46,7 @@ namespace Yedidim.Controllers
         // POST: CallFromPeopleController/Create
         public async Task<ActionResult> Post([FromBody] CallsPostModel value)
         {
-            var call = new CallFromPeople { Id = value.Id, Name = value.Name, Phone = value.Phone, TypesOfCallID = value.IdTypesOfCall, VolunteerID = value.IdVolunteer };
+            var call = _mapper.Map<CallFromPeople>(value);
             var call2 = await _CallFromPeopleService.Add(call);
             var callDto = _mapper.Map<CallsDto>(call2);
             return Ok(callDto);
@@ -57,7 +56,7 @@ namespace Yedidim.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] CallsPostModel value)
         {
-            var c = new CallFromPeople { Id = value.Id, Name = value.Name, Phone = value.Phone, TypesOfCallID = value.IdTypesOfCall, VolunteerID = value.IdVolunteer };
+            var c = _mapper.Map<CallFromPeople>(value);
 
             var call = await _CallFromPeopleService.Update(id, c);
 

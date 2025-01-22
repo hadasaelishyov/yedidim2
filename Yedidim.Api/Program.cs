@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Yedidim;
+using Yedidim.Api;
 using Yedidim.Api.Middlewares;
 using Yedidim.Api.Models;
 using Yedidim.Core;
@@ -35,6 +36,8 @@ builder.Services.AddScoped<IVolunteerService, VolunteerService>();
 //builder.Services.AddSingleton<DataContext>();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(MappingPostModel));
+
 
 
 var app = builder.Build();

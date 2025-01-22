@@ -46,7 +46,7 @@ namespace Yedidim.Controllers
         // POST: CallFromPeopleController/Create
         public async Task<ActionResult> Post([FromBody] TypesOfCallModel value)
         {
-            var t = new TypesOfCall { Id = value.Id, Discribition = value.Discribition };
+            var t = _mapper.Map<TypesOfCall>(value);
             var type = await _TypesOfCallService.Add(t);
             var typeDto = _mapper.Map<TypesOfCallDto>(type);
             return Ok(typeDto);
@@ -56,7 +56,7 @@ namespace Yedidim.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] TypesOfCallModel value)
         {
-            var t = new TypesOfCall { Id = value.Id, Discribition = value.Discribition };
+            var t = _mapper.Map<TypesOfCall>(value);
 
             var type = await _TypesOfCallService.Update(id, t);
 

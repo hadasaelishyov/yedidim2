@@ -46,7 +46,7 @@ namespace Yedidim.Controllers
         // POST: CallFromPeopleController/Create
         public async Task<ActionResult> Post([FromBody] VolunteerModel value)
         {
-            var volunteer = new Volunteer { Id = value.Id, Name = value.Name, Pwd = value.Pwd, Phone = value.Phone };
+            var volunteer = _mapper.Map<Volunteer>(value);
             var v = await _VolunteerService.Add(volunteer);
             var volunteerDto = _mapper.Map<VolunteerDto>(v);
             return Ok(volunteerDto);
@@ -56,8 +56,8 @@ namespace Yedidim.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] VolunteerModel value)
         {
-            var volunteer = new Volunteer { Id = value.Id, Name = value.Name, Pwd = value.Pwd, Phone = value.Phone };
-            var v = await _VolunteerService.Add(volunteer);
+            var volunteer = _mapper.Map<Volunteer>(value);
+            var v = await _VolunteerService.Update(id, volunteer);
 
             var volunteerDto = _mapper.Map<VolunteerDto>(v);
 
