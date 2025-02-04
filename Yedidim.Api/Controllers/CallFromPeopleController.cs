@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Yedidim.Api.Models;
 using Yedidim.Core.DTOs;
@@ -9,6 +10,8 @@ namespace Yedidim.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class CallFromPeopleController : Controller
     {
         private readonly ICallFromPeopleService _CallFromPeopleService;

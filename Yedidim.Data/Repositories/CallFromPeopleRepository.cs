@@ -30,6 +30,7 @@ namespace Yedidim.Data.Repositories
 
         public async Task<CallFromPeople> AddAsync(CallFromPeople callFromPeople)
         {
+
             _context.CallsFromPeople.Add(callFromPeople);
             await _context.SaveChangesAsync();
             return callFromPeople;
